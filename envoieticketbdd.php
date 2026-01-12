@@ -12,8 +12,6 @@ include 'connexionbdd.php';
 
 $titre = $_POST['titre'];
 $descri = $_POST['descri'];
-echo $_SESSION['utilisateur'];
-echo $_SESSION['id'];
 
 $requete = 'INSERT INTO `ticket`(`user_id`, `titre`, `description`) VALUES (:user_id, :titre, :descri)';
 $enregistrement = $bdd->prepare($requete);
@@ -22,4 +20,6 @@ $enregistrement->bindValue(':titre', $titre, PDO::PARAM_STR);
 $enregistrement->bindValue(':descri', $descri, PDO::PARAM_STR);
 $enregistrement->execute();
 $enregistrement->closeCursor();
+
+header('Location: creation_ticket.php');
 ?>
