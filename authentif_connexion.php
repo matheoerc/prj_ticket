@@ -10,7 +10,7 @@ $mdp = $_POST['mdp'];
 echo "$mdp<br>";
 
 
-$requete = 'SELECT mail, mdp FROM utilisateur WHERE mail = :mail';
+$requete = 'SELECT id, mail, mdp FROM utilisateur WHERE mail = :mail';
 $verification = $bdd->prepare($requete);
 $verification->bindValue(':mail', $mail, PDO::PARAM_STR);
 $verification->execute();
@@ -32,12 +32,14 @@ if (password_verify($mdp, $mdp_hache)) {
     if ($connexion2['roles'] === 'administrateur') {
         session_start();
         $_SESSION['utilisateur'] = $_POST['mail'];
+        $_SESSION['id'] = $connexion['id'];
         $_SESSION['utilisateur_nom'] = $_POST['nom'];
         header('Location: index_admin.php');
     } else {
         session_start();
         $_SESSION['utilisateur'] = $_POST['mail'];
         $_SESSION['utilisateur_nom'] = $_POST['nom'];
+         $_SESSION['id'] = $connexion['id'];
         header('Location: index_utilisateur.php');
     }
 } else {
