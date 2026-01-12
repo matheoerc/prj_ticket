@@ -17,8 +17,8 @@ if (empty($_SESSION['utilisateur'])) {
 <body>
     <nav class="navbar bg-body-tertiary">
     <form class="container-fluid justify-content-end">
-        <a href="creation_ticket.php" class="btn btn-outline-primary me-2" target="_blank">Créer un ticket</a> 
-        <a href="deconnexion.php" class="btn btn-outline-danger me-2" target="_blank">Déconnexion</a> 
+        <a href="creation_ticket.php" class="btn btn-outline-primary me-2">Créer un ticket</a> 
+        <a href="deconnexion.php" class="btn btn-outline-danger me-2">Déconnexion</a> 
     </form>
     </nav>
     
