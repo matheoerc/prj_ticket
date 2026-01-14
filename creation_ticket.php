@@ -18,10 +18,10 @@ if (empty($_SESSION['utilisateur'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="p-3 mb-2 bg-info text-dark">
     <nav class="navbar navbar-light bg-light fixed-top">
         <div class="container-fluid justify-content-end">
-            <a href="
+            <a class="btn btn-outline-primary me-2" href="
             <?php
                 if ($_SESSION['roles'] === 'administrateur') {
                     echo "/projet_ticket/index_admin.php";
