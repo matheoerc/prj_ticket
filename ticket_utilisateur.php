@@ -52,10 +52,12 @@ $verification->closeCursor();
     <?php if ((!empty($listeticket))): ?>
         <div class="container" style="max-width:600px; margin-top:120px;">
             <?php foreach ($listeticket as $ticket): ?>
-                <div class="card mb-4" style="width:600px;">
-                    <h5 class="card-header" style="text-align:center;">Statut : <?php echo $ticket['statut']; ?></h5>
-                    <h5 class="card-header" style="text-align:center;">Titre : <?php echo $ticket['titre']; ?></h5>
-                    <h5 class="card-header" style="text-align:center;">Id du ticket : <?php echo $ticket['id']; ?></h5>
+                <div class="card shadow mb-4" style="width:600px;">
+                    <h5 class="card-header" style="text-align:center;">
+                        Statut : <?php echo $ticket['statut']; ?><br>
+                        Id du ticket : <?php echo $ticket['id']; ?><br>
+                        Titre : <?php echo $ticket['titre']; ?><br>
+                    </h5>
                     <div class="card-body">
                         <h5 class="card-title">Description : <?php echo $ticket['description']; ?></h5>
                     </div>

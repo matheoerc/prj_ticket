@@ -51,6 +51,15 @@ if (empty($_SESSION['utilisateur'])) {
                         <label for="descri" class="form-label">Description</label>
                         <textarea id="descri" name="descri" class="form-control" required></textarea>
                     </div>
+                    <div class="mb-3">
+                        <label for="priorite" class="form-label">Priorité</label>
+                        <select id="priorite" name="priorite" class="form-select" required>
+                            <option value="" disabled selected>Choisir la priorité</option>
+                            <option value="basse">Basse</option>
+                            <option value="moyenne">Moyenne</option>
+                            <option value="forte">Forte</option>
+                        </select>
+                    </div>
                     <div class="d-grid" style="padding-top:40px; font-size: 35px">
                         <button type="submit" class="btn btn-primary">Envoyer le ticket</button>
                     </div>

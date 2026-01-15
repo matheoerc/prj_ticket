@@ -27,5 +27,18 @@ if (empty($_SESSION['utilisateur'])) {
             </div>
         </div>
     </nav>
+    <div class="container mt-5 pt-5">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow">
+                    <img src="cahier_charges.png" class="img-fluid" alt="Cahier des charges">
+                    <div class="card-body">
+                        <h5 class="card-title">Cahier des charges</h5>
+                        <a href="cahier_charges.pdf" target="_blank" class="btn btn-outline-primary">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
