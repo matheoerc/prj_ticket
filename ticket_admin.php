@@ -51,14 +51,14 @@ $verification->closeCursor();
         <div class="container" style="max-width:600px; margin-top:120px;">
             <?php foreach ($listeticket as $ticket): ?>
                 <div class="card mb-4" style="width:600px;">
-                    <h5 class="card-header" style="text-align:center;">Status : <?php echo $ticket['statut']; ?></h5>
+                    <h5 class="card-header" style="text-align:center;">Statut : <?php echo $ticket['statut']; ?></h5>
                     <h5 class="card-header" style="text-align:center;">Titre : <?php echo $ticket['titre']; ?></h5>
                     <h5 class="card-header" style="text-align:center;">Id du ticket : <?php echo $ticket['id']; ?></h5>
                     <div class="card-body">
                         <h5 class="card-title">Description : <?php echo $ticket['description']; ?></h5>
                     </div>
                     <form action="changer_statut.php" method="get" style="text-align:end; margin-top:10px;">
-                        <button type="submit" class="btn btn-warning mt-2">Marquer comme en cours</button>
+                        <button type="submit" class="btn btn-success mt-2">Marquer comme résolu</button>
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                     </form>
                     <form action="suppression_ticket.php" method="get" style="text-align:end; margin-top:10px;">

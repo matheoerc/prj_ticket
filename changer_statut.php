@@ -13,7 +13,7 @@ include 'connexionbdd.php';
 
 $id_ticket = $_GET['ticket_id'];
 
-$statut = "UPDATE ticket SET statut = 'En cours' WHERE id = :id";
+$statut = "UPDATE ticket SET statut = 'Resolu' WHERE id = :id";
 $changement = $bdd->prepare($statut);
 $changement->bindValue(':id', $id_ticket, PDO::PARAM_INT);
 $changement->execute();
