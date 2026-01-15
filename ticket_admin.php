@@ -11,9 +11,8 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT id, titre, description FROM ticket WHERE user_id = :user_id";
+$requete = "SELECT id, titre, description, user_id FROM ticket";
 $verification = $bdd->prepare($requete);
-$verification->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
 $verification->closeCursor();
@@ -25,7 +24,7 @@ $verification->closeCursor();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket Utilisateur</title>
+    <title>Ticket Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -44,7 +43,6 @@ $verification->closeCursor();
                         }
                     ?>
                 ">Accueil</a>
-                <a href="creation_ticket.php" class="btn btn-outline-primary me-2">Créer un ticket</a>
                 <a href="deconnexion.php" class="btn btn-outline-danger">Déconnexion</a>
             </div>
         </div>
@@ -69,8 +67,7 @@ $verification->closeCursor();
         <div class="card mb-4" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;text-align:center;">
             <h5 class="card-header">Aucun ticket en cours !</h5>
             <div class="card-body">
-                <h5 class="card-title">Si vous souhaitez en créer-un, vous pouvez cliquer ci dessous. On s'occupera de votre ticket le plus rapidement possible.</h5>
-                <a href="creation_ticket.php" class="btn btn-primary" style="margin-top: 50px; margin-left: 400px;">Créer un ticket !</a>
+                <h5 class="card-title">Personne n'a ouvert de ticket.</h5>
             </div>
         </div>
     <?php endif; ?>

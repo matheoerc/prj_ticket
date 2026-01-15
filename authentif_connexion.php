@@ -44,14 +44,14 @@ if (password_verify($mdp, $mdp_hache)) {
         $_SESSION['utilisateur'] = $_POST['mail'];
         $_SESSION['id'] = $connexion['id'];
         $_SESSION['utilisateur_nom'] = $connexion3['nom'];
-        $_SESSION['roles'] = $connexion2;
+        $_SESSION['roles'] = $connexion2['roles'];
         header('Location: index_admin.php');
     } else {
         session_start();
         $_SESSION['utilisateur'] = $_POST['mail'];
         $_SESSION['utilisateur_nom'] = $connexion3['nom'];
         $_SESSION['id'] = $connexion['id'];
-        $_SESSION['roles'] = $connexion2;
+        $_SESSION['roles'] = $connexion2['roles'];
         header('Location: index_utilisateur.php');
     }
 } else {

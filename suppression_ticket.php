@@ -19,6 +19,10 @@ $suppression->bindValue(':id', $id_ticket, PDO::PARAM_INT);
 $suppression->execute();
 $suppression->closeCursor();
 
-header('Location: index_utilisateur.php');
+if ($_SESSION['roles'] === 'administrateur') {
+    header('Location: index_admin.php');
+} else {
+    header('Location: index_utilisateur.php');
+}
 
 ?>
