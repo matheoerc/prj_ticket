@@ -20,9 +20,9 @@ $suppression->execute();
 $suppression->closeCursor();
 
 if ($_SESSION['roles'] === 'administrateur') {
-    header('Location: index_admin.php');
+    header('Location: ticket_admin.php');
 } else {
-    header('Location: index_utilisateur.php');
+    header('Location: ticket_utilisateur.php');
 }
 
 ?>
