@@ -21,5 +21,5 @@ $enregistrement->bindValue(':descri', $descri, PDO::PARAM_STR);
 $enregistrement->execute();
 $enregistrement->closeCursor();
 
-header('Location: creation_ticket.php');
+header('Location: ticket_utilisateur.php');
 ?>

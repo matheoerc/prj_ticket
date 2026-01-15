@@ -11,11 +11,11 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT titre, description FROM ticket WHERE user_id = :user_id";
+$requete = "SELECT id, titre, description FROM ticket WHERE user_id = :user_id";
 $verification = $bdd->prepare($requete);
 $verification->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
 $verification->execute();
-$listeticket = $verification->fetch(PDO::FETCH_ASSOC);
+$listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
 $verification->closeCursor();
 ?>
 
@@ -49,11 +49,30 @@ $verification->closeCursor();
             </div>
         </div>
     </nav>
-    <div class="card" style="margin-top: 100px; max-width: 600px; height: 325px;">
-        <h5 class="card-header">Titre : <?php echo $listeticket['titre']; ?></h5>
-        <div class="card-body">
-            <h5 class="card-title">Description : <?php echo $listeticket['description']; ?></h5>
+    <?php if ((!empty($listeticket))): ?>
+        <div class="container" style="max-width:600px; margin-top:120px;">
+            <?php foreach ($listeticket as $ticket): ?>
+                <div class="card mb-4" style="width:600px;">
+                    <h5 class="card-header" style="text-align:center;">Titre : <?php echo $ticket['titre']; ?></h5>
+                    <h5 class="card-header" style="text-align:center;">Id du ticket : <?php echo $ticket['id']; ?></h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Description : <?php echo $ticket['description']; ?></h5>
+                    </div>
+                    <form action="suppression_ticket.php" method="get" style="text-align:end; margin-top:10px;">
+                        <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
+                        <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
+                    </form>
+                </div>
+            <?php endforeach; ?>
         </div>
-    </div>
+    <?php else: ?>
+        <div class="card mb-4" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;text-align:center;">
+            <h5 class="card-header">Aucun ticket en cours !</h5>
+            <div class="card-body">
+                <h5 class="card-title">Si vous souhaitez en créer-un, vous pouvez cliquer ci dessous. On s'occupera de votre ticket le plus rapidement possible.</h5>
+                <a href="creation_ticket.php" class="btn btn-primary" style="margin-top: 50px; margin-left: 400px;">Créer un ticket !</a>
+            </div>
+        </div>
+    <?php endif; ?>
 </body>
 </html>
