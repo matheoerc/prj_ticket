@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT id, titre, description, statut FROM ticket WHERE user_id = :user_id";
+$requete = "SELECT id, titre, description, statut, datecreation FROM ticket WHERE user_id = :user_id";
 $verification = $bdd->prepare($requete);
 $verification->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
 $verification->execute();
@@ -53,22 +53,29 @@ $verification->closeCursor();
         <div class="container" style="max-width:600px; margin-top:120px;">
             <?php foreach ($listeticket as $ticket): ?>
                 <div class="card shadow mb-4" style="width:600px;">
-                    <h5 class="card-header" style="text-align:center;">
-                        Statut : <?php echo $ticket['statut']; ?><br>
-                        Id du ticket : <?php echo $ticket['id']; ?><br>
-                        Titre : <?php echo $ticket['titre']; ?><br>
-                    </h5>
+                    <div class="card-header">
+                        <h5 class="fw-bold mb-2">
+                            <?php echo $ticket['titre']; ?>
+                        </h5>
+                        <div class="text-secondary">
+                            Statut : <?php echo $ticket['statut']; ?>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Description : <?php echo $ticket['description']; ?></h5>
+                        <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
                     <form action="maj_ticket.php" method="get" style="text-align:end; margin-top:10px;">
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                         <button type="submit" class="btn btn-primary mt-2">Modifier</button>
                     </form>
                     <form action="suppression_ticket.php" method="get" style="text-align:end; margin-top:10px;">
-                        <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
+                        <button type="submit" class="btn btn-danger mt-2" style="margin-bottom: 10px;">Supprimer</button>
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                     </form>
+                    <div class="card-footer text-muted d-flex justify-content-between">
+                        <p>Ticket n° <?php echo $ticket['id']; ?></p>
+                        <p>Créé le : <?php echo $ticket['datecreation']; ?></p>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>

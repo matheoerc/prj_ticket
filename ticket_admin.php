@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT id, titre, description, user_id, statut, priorite FROM ticket";
+$requete = "SELECT id, titre, description, user_id, statut, priorite, datecreation FROM ticket";
 $verification = $bdd->prepare($requete);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
@@ -51,14 +51,19 @@ $verification->closeCursor();
         <div class="container" style="max-width:600px; margin-top:120px;">
             <?php foreach ($listeticket as $ticket): ?>
                 <div class="card mb-4" style="width:600px;">
-                    <h5 class="card-header" style="text-align:center;">
-                        Priorite : <?php echo $ticket['priorite']; ?><br>
-                        Statut : <?php echo $ticket['statut']; ?><br>
-                        Id du ticket : <?php echo $ticket['id']; ?><br>
-                        Titre : <?php echo $ticket['titre']; ?><br>
-                    </h5>
+                    <div class="card-header">
+                        <h5 class="fw-bold mb-2">
+                            <?php echo $ticket['titre']; ?>
+                        </h5>
+                        <div class="text-secondary">
+                            Statut : <?php echo $ticket['statut']; ?>
+                        </div>
+                        <div class="text-secondary">
+                            Priorite : <?php echo $ticket['priorite']; ?>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <h5 class="card-title">Description : <?php echo $ticket['description']; ?></h5>
+                        <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
                     <form action="changer_statut.php" method="get" style="text-align:end; margin-top:10px;">
                         <button type="submit" class="btn btn-success mt-2">Marquer comme résolu</button>
@@ -68,6 +73,10 @@ $verification->closeCursor();
                         <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                     </form>
+                    <div class="card-footer text-muted d-flex justify-content-between">
+                        <p>Ticket n° <?php echo $ticket['id']; ?></p>
+                        <p>Créé le : <?php echo $ticket['datecreation']; ?></p>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>
