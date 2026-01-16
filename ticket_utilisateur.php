@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT id, titre, description, statut, datecreation FROM ticket WHERE user_id = :user_id";
+$requete = "SELECT id, titre, description, statut, datecreation FROM ticket WHERE user_id = :user_id ORDER BY datecreation DESC";
 $verification = $bdd->prepare($requete);
 $verification->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_STR);
 $verification->execute();
