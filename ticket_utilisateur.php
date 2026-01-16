@@ -73,7 +73,7 @@ $verification->closeCursor();
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                     </form>
                     <div class="card-footer text-muted d-flex justify-content-between">
-                        <p>Ticket n° <?php echo $ticket['id']; ?></p>
+                        <p>Ticket n°<?php echo $ticket['id']; ?></p>
                         <p>Créé le : <?php echo $ticket['datecreation']; ?></p>
                     </div>
                 </div>
