@@ -16,6 +16,11 @@ $enregistrement->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
 $enregistrement->execute();
 $ticket = $enregistrement->fetch(PDO::FETCH_ASSOC);
 
+if ($ticket['statut'] === 'Resolu') {
+    header('Location: maj_resolu.php');
+    exit;
+}
+
 ?>
 
 <!DOCTYPE html>
