@@ -55,9 +55,9 @@ if (empty($_SESSION['utilisateur'])) {
                         <label for="priorite" class="form-label">Priorité</label>
                         <select id="priorite" name="priorite" class="form-select" required>
                             <option value="" disabled selected>Choisir la priorité</option>
-                            <option value="basse">Basse</option>
-                            <option value="moyenne">Moyenne</option>
-                            <option value="forte">Forte</option>
+                            <option value="1">1: Basse</option>
+                            <option value="2">2: Moyenne</option>
+                            <option value="3">3: Forte</option>
                         </select>
                     </div>
                     <div class="d-grid" style="padding-top:40px; font-size: 35px">
