@@ -7,6 +7,20 @@ session_start();
 if (empty($_SESSION['utilisateur'])) {
     header('Location: accueil_choix.html');
 }
+
+include 'connexionbdd.php';
+
+$inac = "SELECT etatcompte FROM utilisateur WHERE id = :id";
+$inactif = $bdd->prepare($inac);
+$inactif->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+$inactif->execute();
+$etatcompte = $inactif->fetch(PDO::FETCH_ASSOC);
+var_dump($etatcompte);
+
+if ($etatcompte['etatcompte'] == 'inactif'){
+    header('Location: compte_inactif.php');
+}
+
 ?>
 
 <!DOCTYPE html>

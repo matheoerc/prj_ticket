@@ -64,10 +64,17 @@ $verification->closeCursor();
                 <div class="card-body">
                     <h5 class="card-title">Etat du compte : <?php echo $utilisateur['etatcompte']; ?></h5>
                 </div>
-                <form action="desactiver_compte.php" method="get" style="text-align:end; margin-top:10px;">
-                    <button type="submit" class="btn btn-danger mt-2">Activer/Désactiver le compte</button>
-                    <input type="hidden" name="id_compte" value="<?php echo $utilisateur['id']; ?>">
-                </form>
+                <?php if ($utilisateur['etatcompte'] === 'inactif'): ?>
+                    <form action="desactiver_compte.php" method="get" style="text-align:end; margin-top:10px;">
+                        <button type="submit" class="btn btn-success mt-2">Activer le compte</button>
+                        <input type="hidden" name="id_compte" value="<?php echo $utilisateur['id']; ?>">
+                    </form>
+                <?php else: ?>
+                    <form action="desactiver_compte.php" method="get" style="text-align:end; margin-top:10px;">
+                        <button type="submit" class="btn btn-danger mt-2">Désactiver le compte</button>
+                        <input type="hidden" name="id_compte" value="<?php echo $utilisateur['id']; ?>">
+                    </form>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>
