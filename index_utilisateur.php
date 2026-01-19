@@ -1,9 +1,29 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
+
+include 'connexionbdd.php';
 
 if (empty($_SESSION['utilisateur'])) {
     header('Location: accueil_choix.html');
 }
+
+$requete_total = "SELECT id FROM ticket WHERE user_id = :user_id";
+$verification_total = $bdd->prepare($requete_total);
+$verification_total->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+$verification_total->execute();
+$total_tickets = $verification_total->rowCount();
+$verification_total->closeCursor();
+
+$requete_resolu = "SELECT id FROM ticket WHERE user_id = :user_id AND statut = 'Resolu'";
+$verification_resolu = $bdd->prepare($requete_resolu);
+$verification_resolu->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+$verification_resolu->execute();
+$tickets_resolus = $verification_resolu->rowCount();
+$verification_resolu->closeCursor();
+
+$tickets_non_resolus = $total_tickets - $tickets_resolus;
 ?>
 
 <!DOCTYPE html>
@@ -36,6 +56,26 @@ if (empty($_SESSION['utilisateur'])) {
                     <div class="card-body">
                         <h5 class="card-title">Cahier des charges</h5>
                         <a href="cahier_charges.pdf" target="_blank" class="btn btn-outline-primary">Voir plus</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card shadow mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Tickets totaux</h5>
+                        <p class="display-4"><?php echo $total_tickets; ?></p>
+                    </div>
+                </div>
+                <div class="card shadow mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Tickets résolus</h5>
+                        <p class="display-4 text-success"><?php echo $tickets_resolus; ?></p>
+                    </div>
+                </div>
+                <div class="card shadow mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Tickets non résolus</h5>
+                        <p class="display-4 text-danger"><?php echo $tickets_non_resolus; ?></p>
                     </div>
                 </div>
             </div>

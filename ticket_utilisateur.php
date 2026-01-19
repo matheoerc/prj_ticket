@@ -11,13 +11,14 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
+$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id WHERE ticket.user_id = :user_id ORDER BY priorite DESC";
 $verification = $bdd->prepare($requete);
+$verification->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
 $verification->closeCursor();
 
-$requete2 = "SELECT commentaire.commentaire, commentaire.datecommentaire, commentaire.ticket_id, utilisateur.roles FROM commentaire JOIN utilisateur ON commentaire.user_id = utilisateur.id ORDER BY commentaire.id_commentaire ASC";
+$requete2 = "SELECT commentaire.commentaire, commentaire.datecommentaire, commentaire.ticket_id, utilisateur.nom, utilisateur.roles FROM commentaire JOIN utilisateur ON commentaire.user_id = utilisateur.id ORDER BY commentaire.id_commentaire ASC";
 $verification2 = $bdd->prepare($requete2);
 $verification2->execute();
 $listecommentaire = $verification2->fetchAll(PDO::FETCH_ASSOC);
@@ -98,13 +99,15 @@ $verification2->closeCursor();
                         }
                         foreach ($listecommentaire as $com) {
                             if($com['roles'] == 'administrateur') {
-                                $nomecrit = 'Administrateur : ';
+                                $nomecrit = $com['nom'];
+                                $role = 'Administrateur';
                             } else {
-                                $nomecrit = 'Utilisateur : ';
+                                $nomecrit = $com['nom'];
+                                $role = 'Utilisateur';
                             };
                             if ($com['ticket_id'] == $ticket['id']) {
                                 echo '<div class="mb-2 p-2 border rounded bg-light">';
-                                echo "<strong>$nomecrit</strong>";
+                                echo "<strong>$nomecrit ($role): </strong>";
                                 echo $com['commentaire'];
                                 echo '<div class="text-end text-muted mt-1" style="font-size: 0.8rem;">';
                                 echo $com['datecommentaire'];
