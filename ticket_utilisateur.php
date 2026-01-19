@@ -64,9 +64,16 @@ $verification->closeCursor();
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Message de l'Admin : <?php echo $ticket['commentaire']; ?></h5>
+                    </div>
                     <form action="maj_ticket.php" method="get" style="text-align:end; margin-top:10px;">
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                         <button type="submit" class="btn btn-primary mt-2">Modifier</button>
+                    </form>
+                    <form action="commentaire.php" method="get" style="text-align:end; margin-top:10px;">
+                        <button type="submit" class="btn btn-primary mt-2">Ecrire un commentaire</button>
+                        <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                     </form>
                     <form action="suppression_ticket.php" method="get" style="text-align:end; margin-top:10px;">
                         <button type="submit" class="btn btn-danger mt-2" style="margin-bottom: 10px;">Supprimer</button>

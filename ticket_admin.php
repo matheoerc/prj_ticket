@@ -11,11 +11,17 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT id, titre, description, user_id, statut, priorite, datecreation FROM ticket ORDER BY priorite DESC";
+$requete = "SELECT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
 $verification = $bdd->prepare($requete);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
 $verification->closeCursor();
+
+$requete2 = "SELECT * FROM commentaire ORDER BY id_commentaire ASC";
+$verification2 = $bdd->prepare($requete2);
+$verification2->execute();
+$listecommentaire = $verification2->fetchAll(PDO::FETCH_ASSOC);
+$verification2->closeCursor();
 ?>
 
 
@@ -65,6 +71,10 @@ $verification->closeCursor();
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
+                    <form action="commentaire.php" method="get" style="text-align:end; margin-top:10px;">
+                        <button type="submit" class="btn btn-primary mt-2">Ecrire un commentaire</button>
+                        <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
+                    </form>
                     <form action="changer_statut.php" method="get" style="text-align:end; margin-top:10px;">
                         <button type="submit" class="btn btn-success mt-2">Marquer comme résolu</button>
                         <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
@@ -76,6 +86,21 @@ $verification->closeCursor();
                     <div class="card-footer text-muted d-flex justify-content-between">
                         <p>Ticket n°<?php echo $ticket['id']; ?></p>
                         <p>Créé le : <?php echo $ticket['datecreation']; ?></p>
+                    </div>
+                    <div class="card-body border-top">
+                        <h6>Commentaires :</h6>
+                        <?php
+                        if (empty($listecommentaire)) {
+                            echo '<p class="text-muted">Aucun commentaire.</p>';
+                        }
+                        foreach ($listecommentaire as $com) {
+                            if ($com['ticket_id'] == $ticket['id']) {
+                                echo '<div class="mb-2 p-2 border rounded bg-light">';
+                                echo $com['commentaire'];
+                                echo '</div>';
+                            }
+                        }
+                        ?>
                     </div>
                 </div>
             <?php endforeach; ?>
