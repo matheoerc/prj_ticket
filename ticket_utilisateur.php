@@ -50,7 +50,6 @@ $verification2->closeCursor();
                         }
                     ?>
                 ">Accueil</a>
-                <a href="creation_ticket.php" class="btn btn-outline-primary me-2">Créer un ticket</a>
                 <a href="deconnexion.php" class="btn btn-outline-danger">Déconnexion</a>
             </div>
         </div>
@@ -58,13 +57,16 @@ $verification2->closeCursor();
     <?php if ((!empty($listeticket))): ?>
         <div class="container" style="max-width:600px; margin-top:120px;">
             <?php foreach ($listeticket as $ticket): ?>
-                <div class="card shadow mb-4" style="width:600px;">
+                <div class="card mb-4" style="width:600px;">
                     <div class="card-header">
                         <h5 class="fw-bold mb-2">
                             <?php echo $ticket['titre']; ?>
                         </h5>
                         <div class="text-secondary">
                             Statut : <?php echo $ticket['statut']; ?>
+                        </div>
+                        <div class="text-secondary">
+                            Priorite : <?php echo $ticket['priorite']; ?>
                         </div>
                     </div>
                     <div class="card-body">
@@ -106,10 +108,9 @@ $verification2->closeCursor();
                                 $role = 'Utilisateur';
                             };
                             if ($com['ticket_id'] == $ticket['id']) {
-                                echo '<div class="mb-2 p-2 border rounded bg-light">';
-                                echo "<strong>$nomecrit ($role): </strong>";
-                                echo $com['commentaire'];
-                                echo '<div class="text-end text-muted mt-1" style="font-size: 0.8rem;">';
+                                echo '<div class="mb-2 p-2 border rounded bg-light d-flex flex-column">';
+                                echo "<div><strong>$nomecrit ($role): </strong>{$com['commentaire']}</div>";
+                                echo '<div class="text-end text-muted mt-2" style="font-size: 0.8rem;">';
                                 echo $com['datecommentaire'];
                                 echo '</div>';
                                 echo '</div>';
@@ -124,8 +125,7 @@ $verification2->closeCursor();
         <div class="card mb-4" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;text-align:center;">
             <h5 class="card-header">Aucun ticket en cours !</h5>
             <div class="card-body">
-                <h5 class="card-title">Si vous souhaitez en créer-un, vous pouvez cliquer ci dessous. On s'occupera de votre ticket le plus rapidement possible.</h5>
-                <a href="creation_ticket.php" class="btn btn-primary" style="margin-top: 50px; margin-left: 400px;">Créer un ticket !</a>
+                <h5 class="card-title">Personne n'a ouvert de ticket.</h5>
             </div>
         </div>
     <?php endif; ?>

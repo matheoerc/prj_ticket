@@ -107,10 +107,9 @@ $verification2->closeCursor();
                                 $role = 'Utilisateur';
                             };
                             if ($com['ticket_id'] == $ticket['id']) {
-                                echo '<div class="mb-2 p-2 border rounded bg-light">';
-                                echo "<strong>$nomecrit ($role): </strong>";
-                                echo $com['commentaire'];
-                                echo '<div class="text-end text-muted mt-1" style="font-size: 0.8rem;">';
+                                echo '<div class="mb-2 p-2 border rounded bg-light d-flex flex-column justify-content-between" style="height: 80px;">';
+                                echo "<div><strong>$nomecrit ($role): </strong>{$com['commentaire']}</div>";
+                                echo '<div class="text-end text-muted" style="font-size: 0.8rem;">';
                                 echo $com['datecommentaire'];
                                 echo '</div>';
                                 echo '</div>';
