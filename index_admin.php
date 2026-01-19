@@ -21,6 +21,7 @@ if (empty($_SESSION['utilisateur'])) {
                 Bienvenue <?php echo $_SESSION['utilisateur_nom']; ?>
             </p>
             <div class="justify-content-end">
+                <a href="profil.php" class="btn btn-outline-primary me-2">Mon profil</a>
                 <a href="ticket_admin.php" class="btn btn-outline-primary me-2">Tickets</a>
                 <a href="deconnexion.php" class="btn btn-outline-danger">Déconnexion</a>
             </div>
