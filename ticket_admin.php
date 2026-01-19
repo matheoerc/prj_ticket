@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
+$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
 $verification = $bdd->prepare($requete);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
