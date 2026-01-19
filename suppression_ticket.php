@@ -13,6 +13,12 @@ include 'connexionbdd.php';
 
 $id_ticket = $_GET['ticket_id'];
 
+$suppr = "DELETE FROM commentaire WHERE ticket_id = :id";
+$suppression = $bdd->prepare($suppr);
+$suppression->bindValue(':id', $id_ticket, PDO::PARAM_INT);
+$suppression->execute();
+$suppression->closeCursor();
+
 $suppr = "DELETE FROM ticket WHERE id = :id";
 $suppression = $bdd->prepare($suppr);
 $suppression->bindValue(':id', $id_ticket, PDO::PARAM_INT);

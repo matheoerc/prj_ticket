@@ -17,7 +17,7 @@ $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
 $verification->closeCursor();
 
-$requete2 = "SELECT * FROM commentaire ORDER BY id_commentaire ASC";
+$requete2 = "SELECT commentaire.commentaire, commentaire.datecommentaire, commentaire.ticket_id, utilisateur.roles FROM commentaire JOIN utilisateur ON commentaire.user_id = utilisateur.id ORDER BY commentaire.id_commentaire ASC";
 $verification2 = $bdd->prepare($requete2);
 $verification2->execute();
 $listecommentaire = $verification2->fetchAll(PDO::FETCH_ASSOC);
@@ -71,32 +71,46 @@ $verification2->closeCursor();
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
-                    <form action="commentaire.php" method="get" style="text-align:end; margin-top:10px;">
-                        <button type="submit" class="btn btn-primary mt-2">Ecrire un commentaire</button>
-                        <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
-                    </form>
-                    <form action="changer_statut.php" method="get" style="text-align:end; margin-top:10px;">
-                        <button type="submit" class="btn btn-success mt-2">Marquer comme résolu</button>
-                        <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
-                    </form>
-                    <form action="suppression_ticket.php" method="get" style="text-align:end; margin-top:10px;">
-                        <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
-                        <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
-                    </form>
-                    <div class="card-footer text-muted d-flex justify-content-between">
-                        <p>Ticket n°<?php echo $ticket['id']; ?></p>
-                        <p>Créé le : <?php echo $ticket['datecreation']; ?></p>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-center gap-3 mb-3">
+                            <form action="commentaire.php" method="get">
+                                <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
+                                <button type="submit" class="btn btn-primary btn-sm" style="font-size: 17px;">Écrire un commentaire</button>
+                            </form>
+                            <form action="maj_ticket.php" method="get">
+                                <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
+                                <button type="submit" class="btn btn-warning btn-sm" style="font-size: 17px;">Modifier</button>
+                            </form>
+                            <form action="suppression_ticket.php" method="get">
+                                <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
+                                <button type="submit" class="btn btn-danger btn-sm" style="font-size: 17px;">Supprimer</button>
+                            </form>
+                        </div>
+                        <div class="d-flex justify-content-between text-muted">
+                            <p>Ticket n°<?php echo $ticket['id']; ?></p>
+                            <p>Créé le : <?php echo $ticket['datecreation']; ?></p>
+                        </div>
                     </div>
                     <div class="card-body border-top">
-                        <h6>Commentaires :</h6>
+                        <h5>Commentaires :</h5>
                         <?php
+                        
                         if (empty($listecommentaire)) {
                             echo '<p class="text-muted">Aucun commentaire.</p>';
                         }
                         foreach ($listecommentaire as $com) {
+                            if($com['roles'] == 'administrateur') {
+                                $nomecrit = 'Administrateur : ';
+                            } else {
+                                $nomecrit = 'Utilisateur : ';
+                            };
                             if ($com['ticket_id'] == $ticket['id']) {
                                 echo '<div class="mb-2 p-2 border rounded bg-light">';
+                                echo "<strong>$nomecrit</strong>";
                                 echo $com['commentaire'];
+                                echo '<div class="text-end text-muted mt-1" style="font-size: 0.8rem;">';
+                                echo $com['datecommentaire'];
+                                echo '</div>';
                                 echo '</div>';
                             }
                         }
