@@ -12,7 +12,7 @@ $titre = $_POST['titre'];
 $descri = $_POST['descri'];
 $priorite = $_POST['priorite'];
 
-$requete = "UPDATE ticket SET titre = :titre, description = :descri, priorite = :priorite WHERE id = :id AND user_id = :user_id";
+$requete = "UPDATE ticket SET titre = :titre, description = :descri, priorite = :priorite, modifie = 'oui' WHERE id = :id AND user_id = :user_id";
 $maj = $bdd->prepare($requete);
 $maj->bindValue(':titre', $titre, PDO::PARAM_STR);
 $maj->bindValue(':descri', $descri, PDO::PARAM_STR);

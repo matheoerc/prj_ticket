@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
+$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.modifie, ticket.priorite, ticket.datecreation, utilisateur.nom  FROM ticket  LEFT JOIN utilisateur ON ticket.user_id = utilisateur.id  ORDER BY priorite DESC";
 $verification = $bdd->prepare($requete);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
@@ -62,6 +62,9 @@ $verification2->closeCursor();
                             <?php echo $ticket['titre']; ?>
                         </h5>
                         <div class="text-secondary">
+                            Créé par : <?php echo $ticket['nom']; ?>
+                        </div>
+                        <div class="text-secondary">
                             Statut : <?php echo $ticket['statut']; ?>
                         </div>
                         <div class="text-secondary">
@@ -71,6 +74,11 @@ $verification2->closeCursor();
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
+                    <?php if ($ticket['modifie'] === 'oui'): ?>
+                        <div class="alert alert-info m-3" role="alert">
+                            Le ticket a été modifié.
+                        </div>
+                    <?php endif; ?>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center gap-3 mb-3">
                             <form action="commentaire.php" method="get">

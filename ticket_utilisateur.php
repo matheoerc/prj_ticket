@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id WHERE ticket.user_id = :user_id ORDER BY priorite DESC";
+$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.modifie, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id WHERE ticket.user_id = :user_id ORDER BY priorite DESC";
 $verification = $bdd->prepare($requete);
 $verification->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
 $verification->execute();
@@ -72,6 +72,11 @@ $verification2->closeCursor();
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $ticket['description']; ?></h5>
                     </div>
+                    <?php if ($ticket['modifie'] === 'oui'): ?>
+                        <div class="alert alert-info m-3" role="alert">
+                            Le ticket a été modifié.
+                        </div>
+                    <?php endif; ?>
                     <div class="card-footer">
                         <div class="d-flex justify-content-center gap-3 mb-3">
                             <form action="commentaire.php" method="get">
@@ -95,7 +100,6 @@ $verification2->closeCursor();
                     <div class="card-body border-top">
                         <h5>Commentaires :</h5>
                         <?php
-                        
                         if (empty($listecommentaire)) {
                             echo '<p class="text-muted">Aucun commentaire.</p>';
                         }
