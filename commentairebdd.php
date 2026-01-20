@@ -12,11 +12,12 @@ include 'connexionbdd.php';
 $commentaire = $_POST['commentaire'];
 $ticket_id = $_POST['ticket_id'];
 
-$requete = 'INSERT INTO `commentaire`(`ticket_id`, `commentaire`, `user_id`) VALUES (:ticket_id, :commentaire, :user_id)';
+$requete = 'INSERT INTO `commentaire`(`ticket_id`, `commentaire`, `user_id`, `roles`) VALUES (:ticket_id, :commentaire, :user_id, :roles)';
 $enregistrement = $bdd->prepare($requete);
 $enregistrement->bindValue(':ticket_id', $ticket_id, PDO::PARAM_INT);
 $enregistrement->bindValue(':commentaire', $commentaire, PDO::PARAM_STR);
 $enregistrement->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+$enregistrement->bindValue(':roles', $_SESSION['roles'], PDO::PARAM_STR);
 $enregistrement->execute();
 $enregistrement->closeCursor();
 

@@ -11,7 +11,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
+$requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.priorite, ticket.datecreation FROM ticket LEFT JOIN commentaire ON ticket.id = commentaire.ticket_id ORDER BY priorite DESC";
 $verification = $bdd->prepare($requete);
 $verification->execute();
 $listeticket = $verification->fetchAll(PDO::FETCH_ASSOC);
@@ -76,10 +76,6 @@ $verification2->closeCursor();
                             <form action="commentaire.php" method="get">
                                 <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
                                 <button type="submit" class="btn btn-primary btn-sm" style="font-size: 17px;">Écrire un commentaire</button>
-                            </form>
-                            <form action="maj_ticket.php" method="get">
-                                <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">
-                                <button type="submit" class="btn btn-warning btn-sm" style="font-size: 17px;">Modifier</button>
                             </form>
                             <form action="suppression_ticket.php" method="get">
                                 <input type="hidden" name="ticket_id" value="<?php echo $ticket['id']; ?>">

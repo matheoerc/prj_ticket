@@ -125,7 +125,7 @@ $verification2->closeCursor();
         <div class="card mb-4" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;text-align:center;">
             <h5 class="card-header">Aucun ticket en cours !</h5>
             <div class="card-body">
-                <h5 class="card-title">Personne n'a ouvert de ticket.</h5>
+                <h5 class="card-title">Vous n'avez pas encore ouvert de ticket.</h5>
             </div>
         </div>
     <?php endif; ?>
