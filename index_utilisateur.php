@@ -44,6 +44,7 @@ $tickets_non_resolus = $total_tickets - $tickets_resolus;
                 <a href="profil.php" class="btn btn-outline-primary me-2">Mon profil</a>
                 <a href="ticket_utilisateur.php" class="btn btn-outline-primary me-2">Mes tickets</a>
                 <a href="creation_ticket.php" class="btn btn-outline-primary me-2">Créer un ticket</a>
+                <a href="candidatureadmin.php" class="btn btn-outline-primary me-2">Devenir admin</a>
                 <a href="deconnexion.php" class="btn btn-outline-danger">Déconnexion</a>
             </div>
         </div>
