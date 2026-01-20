@@ -22,6 +22,7 @@ if (empty($_SESSION['utilisateur'])) {
             </p>
             <div class="justify-content-end">
                 <a href="profil.php" class="btn btn-outline-primary me-2">Mon profil</a>
+                <a href="candidatureadmin.php" class="btn btn-outline-primary me-2">Candidatures</a>
                 <a href="compte_utilisateur.php" class="btn btn-outline-primary me-2">Utilisateurs</a>
                 <a href="ticket_admin.php" class="btn btn-outline-primary me-2">Tickets</a>
                 <a href="deconnexion.php" class="btn btn-outline-danger">Déconnexion</a>

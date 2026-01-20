@@ -10,11 +10,6 @@ if (empty($_SESSION['utilisateur'])) {
     exit;
 }
 
-if (empty($_POST['message'])) {
-    header('Location: candidatureadmin.php');
-    exit;
-}
-
 $verif_sql = "SELECT id FROM candidature WHERE user_id = :id";
 $verif = $bdd->prepare($verif_sql);
 $verif->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
@@ -22,7 +17,7 @@ $verif->execute();
 $nb_candidature = $verif->rowCount();
 
 if ($nb_candidature > 0) {
-    header('Location: candidatureadmin.php');
+    header('Location: candidature.php');
     exit;
 }
 
@@ -33,5 +28,5 @@ $candidature->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
 $candidature->bindValue(':message', $_POST['message'], PDO::PARAM_STR);
 $candidature->execute();
 
-header('Location: candidatureadmin.php');
+header('Location: candidature.php');
 exit;

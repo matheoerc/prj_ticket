@@ -10,7 +10,7 @@ if (empty($_SESSION['utilisateur'])) {
 
 include 'connexionbdd.php';
 
-$requete_candidature_sql = "SELECT candidature.id, candidature.message, candidature.statut, utilisateur.nom FROM candidature JOIN utilisateur ON candidature.user_id = utilisateur.id WHERE candidature.statut = 'En cours'";
+$requete_candidature_sql = "SELECT candidature.id, candidature.message, candidature.statut, utilisateur.nom FROM candidature JOIN utilisateur ON candidature.user_id = utilisateur.id";
 $requete_candidature = $bdd->prepare($requete_candidature_sql);
 $requete_candidature->execute();
 $candidatures = $requete_candidature->fetchAll(PDO::FETCH_ASSOC);
@@ -32,7 +32,15 @@ $nb_candidature = count($candidatures);
             Bienvenue <?php echo $_SESSION['utilisateur_nom']; ?>
         </p>
         <div class="justify-content-end">
-            <a class="btn btn-outline-primary me-2" href="/projet_ticket/index_admin.php">Accueil</a>
+            <a class="btn btn-outline-primary me-2" href="
+                    <?php
+                        if ($_SESSION['roles'] === 'administrateur') {
+                            echo "/projet_ticket/index_admin.php";
+                        } else {
+                            echo "/projet_ticket/index_utilisateur.php";
+                        }
+                    ?>
+                ">Accueil</a>
             <a href="deconnexion.php" class="btn btn-outline-danger">Déconnexion</a>
         </div>
     </div>
@@ -52,14 +60,7 @@ $nb_candidature = count($candidatures);
                             <h5 class="card-title"><?php echo $candidature['nom']; ?></h5>
                             <p class="card-text"><?php echo $candidature['message']; ?></p>
                             <div class="d-flex justify-content-between">
-                                <form action="candidatureaccepter.php" method="get">
-                                    <input type="hidden" name="id_candidature" value="<?php echo $candidature['id']; ?>">
-                                    <button type="submit" class="btn btn-success">Accepter</button>
-                                </form>
-                                <form action="candidaturerefuser.php" method="get">
-                                    <input type="hidden" name="id_candidature" value="<?php echo $candidature['id']; ?>">
-                                    <button type="submit" class="btn btn-danger">Refuser</button>
-                                </form>
+                                <p class="card-text"> <?php echo $candidature['statut']; ?></p>
                             </div>
                         </div>
                     </div>
