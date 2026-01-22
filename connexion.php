@@ -28,6 +28,12 @@
                         Se connecter
                     </button>
                 </div>
+                <div class="text-center mt-3">
+                    <p class="text-muted">Pas encore inscrit ?</p>
+                    <a href="inscription.php" class="text-decoration-none fw-semibold" target="_blank">
+                        Inscrivez-vous
+                    </a>
+                </div>
             </form>
         </div>
     </div>

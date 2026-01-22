@@ -30,6 +30,12 @@
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">S'inscrire</button>
                 </div>
+                <div class="text-center mt-3">
+                    <p class="text-muted">Déjà inscrit ?</p>
+                    <a href="connexion.php" class="text-decoration-none fw-semibold" target="_blank">
+                        Connectez-vous
+                    </a>
+                </div>
             </form>
         </div>
     </div>
