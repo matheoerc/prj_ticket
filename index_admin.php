@@ -4,6 +4,11 @@ session_start();
 if (empty($_SESSION['utilisateur'])) {
     header('Location: accueil_choix.html');
 }
+
+if ($_SESSION['roles'] == 'utilisateur') {
+        header('Location: index_utilisateur.php');
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>

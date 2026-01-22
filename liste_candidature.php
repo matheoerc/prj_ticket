@@ -8,6 +8,11 @@ if (empty($_SESSION['utilisateur'])) {
     exit;
 }
 
+if ($_SESSION['roles'] == 'utilisateur') {
+        header('Location: index_utilisateur.php');
+        exit;
+    }
+
 include 'connexionbdd.php';
 
 $requete_candidature_sql = "SELECT candidature.id, candidature.message, candidature.statut, utilisateur.nom FROM candidature JOIN utilisateur ON candidature.user_id = utilisateur.id";

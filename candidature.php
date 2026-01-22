@@ -8,6 +8,8 @@ if (empty($_SESSION['utilisateur'])) {
     exit;
 }
 
+
+
 include 'connexionbdd.php';
 
 $requete = "SELECT statut FROM candidature WHERE user_id = :id";

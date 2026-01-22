@@ -10,6 +10,11 @@ if (empty($_SESSION['utilisateur'])) {
     exit;
 }
 
+if ($_SESSION['roles'] == 'utilisateur') {
+        header('Location: index_utilisateur.php');
+        exit;
+    }
+
 $verif_sql = "SELECT id FROM candidature WHERE user_id = :id";
 $verif = $bdd->prepare($verif_sql);
 $verif->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);

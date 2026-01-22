@@ -8,6 +8,11 @@ if (empty($_SESSION['utilisateur'])) {
     exit;
 }
 
+if ($_SESSION['roles'] == 'utilisateur') {
+        header('Location: index_utilisateur.php');
+        exit;
+    }
+
 include 'connexionbdd.php';
 
 $id_compte = $_GET['id_compte'];

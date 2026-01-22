@@ -9,6 +9,11 @@ if (empty($_SESSION['utilisateur'])) {
     exit;
 }
 
+if ($_SESSION['roles'] == 'utilisateur') {
+        header('Location: index_utilisateur.php');
+        exit;
+    }
+
 include 'connexionbdd.php';
 
 $requete = "SELECT DISTINCT ticket.id, ticket.titre, ticket.description, ticket.user_id, ticket.statut, ticket.modifie, ticket.priorite, ticket.datecreation, utilisateur.nom  FROM ticket  LEFT JOIN utilisateur ON ticket.user_id = utilisateur.id  ORDER BY priorite DESC";

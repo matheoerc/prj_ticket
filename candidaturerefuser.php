@@ -8,6 +8,11 @@
         exit;
     }
 
+    if ($_SESSION['roles'] == 'utilisateur') {
+        header('Location: index_utilisateur.php');
+        exit;
+    }
+
     include 'connexionbdd.php';
 
     $id_candidature = $_GET['id_candidature'];
